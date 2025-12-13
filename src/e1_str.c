@@ -62,37 +62,44 @@ void reverse(str_t *str) {
     } return;
 }
 
-str_t itoa(int num, int base) {
-    str_t ret;
-    char *str = malloc(13);
-    ret.size = 13;
-    int i = 0;
-    bool negative = false;
-    if (num == 0) {
-        str = realloc(str, 2);
-        str[i++] = '0';
-        str[i] = '\0';
-        ret.data = str;
-        ret.size = 2;
-        return ret;
-    }
-    if (num < 0 && base == 10) {
-        negative = true;
-        num = -num;
-    }
-    while (num != 0) {
-        int rem = num % base;
-        str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
-        num = num / base;
-    }
-    if (negative) { str[i++] = '-'; }
-    str[i] = '\0';
-    size_t actual_size = strlen(str);
-    if (actual_size != 12) {
-        str = realloc(str, actual_size + 1);
-        ret.size = actual_size;
-    }
-    ret.data = str;
-    reverse(&ret);
-    return ret;
+#define DEFINE_ITOA(NAME, TYPE, BUFSIZE) \
+str_t NAME(TYPE num, int base) { \
+    str_t ret; \
+    char *str = malloc(BUFSIZE); \
+    ret.size = BUFSIZE; \
+    int i = 0; \
+    bool negative = false; \
+    if (num == 0) { \
+        str = realloc(str, 2); \
+        str[i++] = '0'; \
+        str[i] = '\0'; \
+        ret.data = str; \
+        ret.size = 2; \
+        return ret; \
+    } \
+    if (num < 0 && base == 10) { \
+        negative = true; \
+        num = -num; \
+    } \
+    while (num != 0) { \
+        TYPE rem = num % base; \
+        str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0'; \
+        num = num / base; \
+    } \
+    if (negative) { str[i++] = '-'; } \
+    str[i] = '\0'; \
+    size_t actual_size = strlen(str); \
+    if (actual_size != 12) { \
+        str = realloc(str, actual_size + 1); \
+        ret.size = actual_size; \
+    } \
+    ret.data = str; \
+    reverse(&ret); \
+    return ret; \
 }
+
+DEFINE_ITOA(itoa, int, 33)
+DEFINE_ITOA(utoa, unsigned int, 33)
+DEFINE_ITOA(ltoa, long long, 65)
+DEFINE_ITOA(ultoa, unsigned long long, 65)
+

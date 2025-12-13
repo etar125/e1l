@@ -7,7 +7,7 @@ CFLAGS="-O2 -Wall -Wextra -Iinclude -fPIC"
 
 clean () {
     rm -rf build
-    rm -rf bin/*e1l*
+    rm -rf bin/*
 }
 
 objs () {
@@ -33,11 +33,12 @@ tests () {
 }
 
 start () {
-    clean
     if [ -z "$1" ] || [ "$1" = "all" ]; then
+        clean
         objs
         static
         shared
+        tests
     elif [ "$1" = "static" ]; then
         objs
         static
@@ -47,6 +48,8 @@ start () {
     elif [ "$1" = "tests" ]; then
         objs
         tests
+    elif [ "$1" = "clean" ]; then
+        clean
     else
         objs
         static
