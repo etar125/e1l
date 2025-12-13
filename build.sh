@@ -4,6 +4,7 @@
 
 CC=gcc
 CFLAGS="-O2 -Wall -Wextra -Iinclude -fPIC"
+SRC="e1_str e1_sarr"
 
 clean () {
     rm -rf build
@@ -12,8 +13,8 @@ clean () {
 
 objs () {
     mkdir -p build
-    for src in $(ls -1 src); do
-        $CC -c $CFLAGS src/$src -o build/$(basename $src .c).o
+    for src in $SRC; do
+        $CC -c $CFLAGS src/$src.c -o build/$src.o
     done
 }
 

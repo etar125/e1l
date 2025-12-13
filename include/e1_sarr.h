@@ -14,7 +14,7 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 size_t sarr_count(str_t *sarr);
 int sarr_add(str_t *sarr, str_t *str);
 int sarr_remove(str_t *sarr, size_t at);
-str_t* sarr_getptr(str_t *sarr, size_t at);
+str_t sarr_getdup(str_t *sarr, size_t at);
 int sarr_insert(str_t *sarr, size_t at, str_t *str);
 int sarr_join(str_t *sarr1, str_t *sarr2);
 
