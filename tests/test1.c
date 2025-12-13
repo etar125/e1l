@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include "e1_str.h"
 
 int main(void) {
     printf("--- e1_str test ---\n");
-    str_t hw;
-    hw.data = strdup("Hello, World!");
-    hw.size = strlen(hw.data);
+    str_t hw = cstr_to_str("Hello, World!", true);
     printf("'%s' 'Hello, World!'\n", hw.data);
     reverse(&hw);
     printf("'%s' '!dlroW ,olleH'\n", hw.data);

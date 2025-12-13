@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 #ifndef E1_STR_H
 #define E1_STR_H
 
+#include <stdbool.h>
 #include <stddef.h>
 
 typedef struct {
@@ -21,7 +22,6 @@ str_t itoa(int num, int base);
 str_t ltoa(long long num, int base);
 str_t utoa(unsigned int num, int base);
 str_t ultoa(unsigned long long num, int base);
-char* str_to_cstr(str_t *str);
-str_t cstr_to_str(char *str);
+str_t cstr_to_str(char *str, bool dup);
 
 #endif

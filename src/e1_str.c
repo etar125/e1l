@@ -103,3 +103,12 @@ DEFINE_ITOA(utoa, unsigned int, 33)
 DEFINE_ITOA(ltoa, long long, 65)
 DEFINE_ITOA(ultoa, unsigned long long, 65)
 
+str_t cstr_to_str(char *str, bool dup) {
+    str_t ret;
+    ret.data = NULL;
+    if (!str) { return ret; }
+    ret.size = strlen(str);
+    if (dup) { ret.data = strdup(str); }
+    else { ret.data = str; }
+    return ret;
+}
