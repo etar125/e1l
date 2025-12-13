@@ -55,7 +55,6 @@ void reverse(str_t *str) {
     size_t start = 0;
     size_t end = (str->size == 0) ? 0 : str->size - 1;
     while (start < end) {
-        printf("%zu %zu\n", start, end);
         char t = str->data[start];
         str->data[start] = str->data[end];
         str->data[end] = t;
