@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 #include <stdlib.h>
 #include <string.h>
 #include <termios.h>
+#include <stdbool.h>
 #include "e1_str.h"
 
 str_t readstr() {
@@ -42,7 +43,7 @@ str_t readstr() {
     tcsetattr(0, TCSANOW, &old_settings);
     if (i < size) {
         size = i + 1;
-        str = realloc(ret, size);
+        str = realloc(str, size);
     }
     str_t ret;
     ret.data = str;
@@ -52,11 +53,12 @@ str_t readstr() {
 
 void reverse(str_t *str) {
     size_t start = 0;
-    size_t end = (str.size == 0) ? 0 : str.size - 1;
+    size_t end = (str->size == 0) ? 0 : str->size - 1;
     while (start < end) {
-        char t = str.data[start];
-        str.data[start] = str.data[end];
-        str.data[end] = t;
+        printf("%zu %zu\n", start, end);
+        char t = str->data[start];
+        str->data[start] = str->data[end];
+        str->data[end] = t;
         end--, start++;
     } return;
 }
@@ -91,6 +93,7 @@ str_t itoa(int num, int base) {
         str = realloc(str, actual_size + 1);
         ret.size = actual_size;
     }
+    ret.data = str;
     reverse(&ret);
     return ret;
 }
