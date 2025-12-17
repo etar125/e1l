@@ -112,3 +112,30 @@ str_t cstr_to_str(char *str, bool dup) {
     else { ret.data = str; }
     return ret;
 }
+
+str_t join(str_t *str1, str_t *str2, char with, bool free_strs) {
+    str_t ret;
+    ret.data = NULL;
+    ret.size = 0;
+    char  *data1 = str1->data,
+          *data2 = str2->data;
+    size_t size1 = str1->size,
+           size2 = str2->size;
+    size_t size_new = size1 + size2;
+    char *data_new = malloc(with ? size_new + 2 : size_new + 1);
+    if (!data_new) { return ret; }
+    memcpy(data_new, data1, size1);
+    if (with) data_new[size1] = with;
+    memcpy(data_new + size1 + (with ? 1 : 0), data2, size2);
+    data_new[with ? size_new + 1 : size_new] = '\0';
+    ret.data = data_new;
+    ret.size = size_new;
+    if (free_strs) {
+        free(data1);
+        free(data2);
+        str1->data = NULL,
+        str2->data = NULL,
+        str1->size = 0,
+        str2->size = 0;
+    } return ret;
+}
