@@ -28,15 +28,70 @@ int sarr_add(str_t *sarr, str_t *str) {
         sarr->size = str->size;
         return 0;
     }
-    size_t new_size = sarr->size + str->size + 1;
-    char *new = malloc(new_size + 1);
-    if (!new) { return 1; }
-    memcpy(new, sarr->data, sarr->size);
-    new[sarr->size] = '\n';
-    memcpy(new + sarr->size + 1, str->data, str->size);
-    new[new_size] = '\0';
+    str_t new = join(sarr, str, '\n', false);
+    if (!new.data) { return 1; }
     free(sarr->data);
-    sarr->data = new;
-    sarr->size = new_size;
+    sarr->data = new.data;
+    sarr->size = new.size;
+    return 0;
+}
+
+static void printstr(str_t str) {
+    putchar('X');
+    for (size_t i = 0; i < str.size; i++) {
+        putchar(str.data[i] == '\n' ? 'A' : str.data[i]);
+    } printf("X\n");
+}   
+
+int sarr_remove(str_t *sarr, size_t at) {
+    size_t count = sarr_count(sarr);
+    if (count == 0 || at >= count) { return 1; }
+    char *str = sarr->data;
+    size_t size = sarr->size;
+    str_t s1, s2;
+    size_t i = 0, end, start2 = 0;
+    size_t current = 0;
+    while (i < size && current != at) {
+        while (i < size && str[i] != '\n' && str[i] != '\0') {
+            i++;
+        }
+        if (i < size && str[i] == '\n') {
+            i++;
+        }
+        current++;
+    }
+    if (i == size || current != at) { return 1; }
+    end = i > 0 ? i - 1 : i;
+    while (i < size && str[i] != '\n' && str[i] != '\0') {
+        i++;
+    }
+    if (i < size && str[i] == '\n') {
+        i++;
+    }
+    start2 = i;
+    s1.data = str;
+    s1.size = end;
+    s2.data = &str[start2];
+    s2.size = size - start2;
+    str_t new;
+    if (s1.size == 0) {
+        new.data = malloc(s2.size + 1);
+        if (!new.data) { return 1; }
+        new.size = s2.size;
+        memcpy(new.data, s2.data, s2.size);
+        new.data[new.size] = '\0';
+    } else if (s2.size == 0) {
+        new.data = malloc(s1.size + 1);
+        if (!new.data) { return 1; }
+        new.size = s1.size;
+        memcpy(new.data, s1.data, s1.size);
+        new.data[new.size] = '\0';
+    } else {
+        new = join(&s1, &s2, '\n', false);
+        if (!new.data) { return 1; }
+    }
+    free(str);
+    sarr->data = new.data;
+    sarr->size = new.size;
     return 0;
 }
