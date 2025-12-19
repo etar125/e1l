@@ -121,7 +121,7 @@ str_t join(str_t *str1, str_t *str2, char with, bool free_strs) {
           *data2 = str2->data;
     size_t size1 = str1->size,
            size2 = str2->size;
-    size_t size_new = size1 + size2;
+    size_t size_new = size1 + size2 + (with ? 1 : 0);
     char *data_new = malloc(with ? size_new + 2 : size_new + 1);
     if (!data_new) { return ret; }
     memcpy(data_new, data1, size1);
