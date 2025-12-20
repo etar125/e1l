@@ -135,3 +135,42 @@ int sarr_insert(str_t *sarr, size_t at, str_t *jstr) {
     sarr->size = new.size;
     return 0;
 }
+
+str_t sarr_getdup(str_t *sarr, size_t at) {
+    str_t ret;
+    ret.data = NULL;
+    ret.size = 0;
+    size_t count = sarr_count(sarr);
+    if (count == 0 || at >= count) { return ret; }
+    char *str = sarr->data;
+    size_t size = sarr->size;
+    if (at == (count - 1)) { return ret; }
+    size_t i = 0, start, end;
+    size_t current = 0;
+    while (i < size && current != at) {
+        while (i < size && str[i] != '\n' && str[i] != '\0') {
+            i++;
+        }
+        if (i < size && str[i] == '\n') {
+            i++;
+        }
+        current++;
+    }
+    if (i == size || current != at) { return ret; }
+    start = i;
+    
+    while (i < size && str[i] != '\n' && str[i] != '\0') {
+        i++;
+    }
+    if (i < size && str[i] == '\n') {
+        i++;
+    }
+    end = i;
+    size_t new_size = end - start;
+    ret.data = malloc(new_size + 1);
+    if (!ret.data) { return ret; }
+    ret.size = new_size;
+    memcpy(ret.data, &str[start], new_size);
+    ret.data[new_size] = '\0';
+    return ret;
+}
