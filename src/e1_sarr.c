@@ -95,3 +95,34 @@ int sarr_remove(str_t *sarr, size_t at) {
     sarr->size = new.size;
     return 0;
 }
+
+int sarr_insert(str_t *sarr, size_t at, str_t *str) {
+    size_t count = sarr_count(sarr);
+    if (count == 0 || at >= count || str->size == 0) { return 1; }
+    char *str = sarr->data;
+    size_t size = sarr->size;
+    size_t i = 0, current = 0, where = 0;
+    while (i < size && current != at) {
+        while (i < size && str[i] != '\n' && str[i] != '\0') {
+            i++;
+        }
+        if (i < size && str[i] == '\n') {
+            i++;
+        }
+        current++;
+    }
+    str_t part1, part2;
+    part1.data = str;
+    part1.size = where ? where - 1 : where;
+    part2.data = &str[where];
+    part2.size = size - where;
+    str_t new_part1 = join(&part1, str, '\n', false);
+    if (!new_part1.data) { return 1; }
+    str_t new = join(&new_part1, &part2, '\n', false);
+    free(new_part1.data);
+    if (!new.data) { return 1; }
+    free(str);
+    sarr->data = new.data;
+    sarr->size = new.size;
+    return 0;
+}
