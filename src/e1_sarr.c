@@ -162,9 +162,6 @@ str_t sarr_getdup(str_t *sarr, size_t at) {
     while (i < size && str[i] != '\n' && str[i] != '\0') {
         i++;
     }
-    if (i < size && str[i] == '\n') {
-        i++;
-    }
     end = i;
     size_t new_size = end - start;
     ret.data = malloc(new_size + 1);

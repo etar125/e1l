@@ -35,11 +35,14 @@ int main(void) {
     printf("Inserted %s at %d\n%s\n", to_add4.data, 2, sarr.data);
     CHECK(sarr_insert(&sarr, 1, &to_add5))
     printf("Inserted %s at %d\n%s\n", to_add5.data, 1, sarr.data);
+    str_t second = sarr_getdup(&sarr, 1);
+    printf("Second str: '%s'\n", second.data);
     free(to_add.data);
     free(to_add2.data);
     free(to_add3.data);
     free(to_add4.data);
     free(to_add5.data);
+    free(second.data);
     free(sarr.data);
     return 0;
 }
