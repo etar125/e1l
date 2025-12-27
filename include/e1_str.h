@@ -24,5 +24,6 @@ str_t utoa(unsigned int num, int base);
 str_t ultoa(unsigned long long num, int base);
 str_t cstr_to_str(char *str, bool dup);
 str_t join(str_t *str1, str_t *str2, char with, bool free_strs);
+str_t emptystr();
 
 #endif

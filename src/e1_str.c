@@ -139,3 +139,10 @@ str_t join(str_t *str1, str_t *str2, char with, bool free_strs) {
         str2->size = 0;
     } return ret;
 }
+
+str_t emptystr() {
+    str_t empty;
+    empty.data = NULL;
+    empty.size = 0;
+    return empty;
+}
