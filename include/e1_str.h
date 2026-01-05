@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 etar125
+Copyright (c) 2025-2026 etar125
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
@@ -25,6 +25,6 @@ str_t ultoa(unsigned long long num, int base);
 str_t cstr_to_str(char *str, bool dup);
 str_t join(str_t *str1, str_t *str2, char with, bool free_strs);
 str_t emptystr();
-void addch(str_t *str, char ch); 
+int addch(str_t *str, char ch); 
 
 #endif

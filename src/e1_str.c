@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 etar125
+Copyright (c) 2025-2026 etar125
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
@@ -145,4 +145,17 @@ str_t emptystr() {
     empty.data = NULL;
     empty.size = 0;
     return empty;
+}
+
+int addch(str_t *str, char ch) {
+    size_t newsize = str->size + 1;
+    char *new = malloc(newsize + 1);
+    if (!new) { return 1; }
+    memcpy(new, str->data, str->size);
+    new[newsize] = '\0';
+    new[newsize - 1] = ch;
+    free(str->data);
+    str->data = new;
+    str->size = newsize;
+    return 0;
 }

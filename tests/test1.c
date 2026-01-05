@@ -8,7 +8,8 @@
 
 int main(void) {
     printf("--- e1_str test ---\n");
-    str_t hw = cstr_to_str("Hello, World!", true);
+    str_t hw = cstr_to_str("Hello, World", true);
+    addch(&hw, '!');
     printf("'%s' 'Hello, World!'\n", hw.data);
     reverse(&hw);
     printf("'%s' '!dlroW ,olleH'\n", hw.data);
