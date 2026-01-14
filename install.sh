@@ -2,7 +2,10 @@
 # install.sh
 # etar125
 
-./build.sh
+echo "pls, run ./build.sh if you did not do that already"
+sleep 2
+echo "okay, installing..."
+sleep 1
 LIB_DIR=/usr/lib
 INCLUDE_DIR=/usr/include
 
