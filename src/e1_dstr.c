@@ -22,8 +22,10 @@ str_t dstr_to_str(dstr_t *str, bool free) {
     str_t ret;
     ret.data = NULL;
     ret.size = 0;
+    if (!str) { return ret; }
     char *from = str->data;
     size_t size = str->pointer;
+    if (!from || size == 0) { return ret; }
     char *data = malloc(size + 1);
     if (!data) { return ret; }
     memcpy(data, from, size);
@@ -36,4 +38,24 @@ str_t dstr_to_str(dstr_t *str, bool free) {
         str->buffsize = str->pointer = 0;
     }
     return ret;
+}
+
+int d_addch(dstr_t *str, char ch) {
+    if (!str) { return 1; }
+    char *buf = str->data;
+    size_t size = str->size;
+    size_t i = str->pointer;
+    if (!buf || size == 0 || i > size) { return 1; }
+    if (i == size) {
+        size_t old = size;
+        char *obuf = buf;
+        size *= 2;
+        buf = malloc(size + 1);
+        if (!buf) { return 1; }
+        memcpy(buf, obuf, old);
+        buf[size] = '\0';
+    }
+    buf[i++] = ch;
+    buf[i] = '\0';
+    return 0;
 }
