@@ -19,7 +19,7 @@ int main(void) {
     n3 = utoa(4000000000, 10);
     n4 = ltoa(4000000000 * 2, 10),
     n5 = ultoa((unsigned long long)-1, 10);
-    printf("'%s' -125\n'%s' 125125125\n'%s' 4000000000\n'%s' %lld\n'%s' %llu\n",
+    printf("'%s' -125\n'%s' 125125125\n'%s' 4000000000\n'%s' %ld\n'%s' %llu\n",
             n1.data, n2.data, n3.data, n4.data, 4000000000 * 2, n5.data, (unsigned long long)-1);
     str_t part1 = cstr_to_str("QWE", true),
           part2 = cstr_to_str("RTY", true);
