@@ -46,7 +46,7 @@ int d_addch(dstr_t *str, char ch) {
     char *buf = str->data;
     size_t size = str->buffsize;
     size_t i = str->pointer;
-    if (!buf || i > size) { return 1; }
+    if (i > size) { return 1; }
     if (i == size) {
         size_t old = size;
         char *obuf = buf;
