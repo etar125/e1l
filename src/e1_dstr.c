@@ -43,7 +43,7 @@ str_t dstr_to_str(dstr_t *str, bool free) {
 int d_addch(dstr_t *str, char ch) {
     if (!str) { return 1; }
     char *buf = str->data;
-    size_t size = str->size;
+    size_t size = str->buffsize;
     size_t i = str->pointer;
     if (!buf || i > size) { return 1; }
     if (i == size) {
@@ -58,5 +58,8 @@ int d_addch(dstr_t *str, char ch) {
     }
     buf[i++] = ch;
     buf[i] = '\0';
+    str->data = buf;
+    str->buffsize = size;
+    str->pointer = i;
     return 0;
 }
