@@ -56,6 +56,7 @@ int d_addch(dstr_t *str, char ch) {
         if (!buf) { return 1; }
         memcpy(buf, obuf, old);
         buf[size] = '\0';
+        free(obuf);
     }
     buf[i++] = ch;
     buf[i] = '\0';
