@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "e1_str.h"
 #include "e1_dstr.h"
 
 dstr_t emptydstr() {
@@ -18,7 +19,7 @@ dstr_t emptydstr() {
     return ret;
 }
 
-str_t dstr_to_str(dstr_t *str, bool free) {
+str_t dstr_to_str(dstr_t *str, bool free_dstr) {
     str_t ret;
     ret.data = NULL;
     ret.size = 0;
@@ -32,7 +33,7 @@ str_t dstr_to_str(dstr_t *str, bool free) {
     data[size] = '\0';
     ret.data = data;
     ret.size = size;
-    if (free) {
+    if (free_dstr) {
         free(from);
         str->data = NULL;
         str->buffsize = str->pointer = 0;

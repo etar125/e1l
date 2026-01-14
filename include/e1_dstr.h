@@ -16,7 +16,7 @@ typedef struct {
     size_t pointer;
 } dstr_t;
 
-str_t dstr_to_str(dstr_t *str, bool free);
+str_t dstr_to_str(dstr_t *str, bool free_dstr);
 dstr_t emptydstr();
 int d_addch(dstr_t *str, char ch); 
 
