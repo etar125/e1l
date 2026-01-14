@@ -5,19 +5,35 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 
 THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef E1_DSTR_H
-#define E1_DSTR_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include "e1_dstr.h"
 
-#include <stddef.h>
+dstr_t emptydstr() {
+    dstr_t ret;
+    ret.data = NULL;
+    ret.buffsize = ret.pointer = 0;
+    return ret;
+}
 
-typedef struct {
-    char *data;
-    size_t buffsize;
-    size_t pointer;
-} dstr_t;
-
-str_t dstr_to_str(dstr_t *str, bool free);
-dstr_t emptydstr();
-int d_addch(dstr_t *str, char ch); 
-
-#endif
+str_t dstr_to_str(dstr_t *str, bool free) {
+    str_t ret;
+    ret.data = NULL;
+    ret.size = 0;
+    char *from = str->data;
+    size_t size = str->pointer;
+    char *data = malloc(size + 1);
+    if (!data) { return ret; }
+    memcpy(data, from, size);
+    data[size] = '\0';
+    ret.data = data;
+    ret.size = size;
+    if (free) {
+        free(from);
+        str->data = NULL;
+        str->buffsize = str->pointer = 0;
+    }
+    return ret;
+}
