@@ -45,11 +45,12 @@ int d_addch(dstr_t *str, char ch) {
     char *buf = str->data;
     size_t size = str->size;
     size_t i = str->pointer;
-    if (!buf || size == 0 || i > size) { return 1; }
+    if (!buf || i > size) { return 1; }
     if (i == size) {
         size_t old = size;
         char *obuf = buf;
         size *= 2;
+        if (size == 0) { size = 1; }
         buf = malloc(size + 1);
         if (!buf) { return 1; }
         memcpy(buf, obuf, old);
