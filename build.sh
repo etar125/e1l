@@ -4,7 +4,7 @@
 
 CC=gcc
 CFLAGS="-O2 -Wall -Wextra -Iinclude -fPIC"
-SRC="e1_str e1_sarr e1_dstr"
+SRC="e1_str e1_sarr e1_dstr e1_arr"
 
 clean () {
     rm -rf build
