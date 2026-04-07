@@ -19,5 +19,7 @@ typedef struct {
 str_t dstr_to_str(dstr_t *str, bool free_dstr);
 dstr_t emptydstr();
 int d_addch(dstr_t *str, char ch); 
+int d_addstr(dstr_t *str, str_t *add);
+int d_addcstr(dstr_t *str, char *add);
 
 #endif
