@@ -74,7 +74,8 @@ int d_addstr(dstr_t *str, str_t *add) {
     str_t res = join(&a, add, 0, false);
     if (!res.data) { return 1; }
     free(str->data);
-    size_t newsize = str->buffsize + 1;
+    size_t newsize = str->buffsize;
+    if (newsize == 0) { newsize = 1; }
     while (newsize <= res.size) { newsize *= 2; }
     str->buffsize = newsize;
     str->pointer = res.size;
