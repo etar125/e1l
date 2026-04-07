@@ -18,5 +18,12 @@ int main(void) {
     printf("'%s'\n", test.data);
     free(hw.data);
     free(test.data);
+    dhw = emptydstr();
+    d_addcstr(&dhw, "Привет");
+    d_addcstr(&dhw, "Мир");
+    d_addch(&dhw, '!');
+    test = dstr_to_str(&dhw, true);
+    printf("'%s'\n", test.data);
+    free(test.data);
     return 0;
 }
