@@ -71,10 +71,10 @@ int d_addstr(dstr_t *str, str_t *add) {
     str_t a;
     a.data = str->data;
     a.size = str->pointer;
-    str_t res = join(&a, add, '', false);
+    str_t res = join(&a, add, 0, false);
     if (!res.data) { return 1; }
     free(str->data);
-    size_t newsize = str->buffsize;
+    size_t newsize = str->buffsize + 1;
     while (newsize <= res.size) { newsize *= 2; }
     str->buffsize = newsize;
     str->pointer = res.size;
@@ -88,7 +88,7 @@ int d_addstr(dstr_t *str, str_t *add) {
 
 int d_addcstr(dstr_t *str, char *add) {
     if (!str || !add) { return 1; }
-    str a;
+    str_t a;
     a.data = add;
     a.size = strlen(add);
     return d_addstr(str, &a);

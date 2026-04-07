@@ -20,7 +20,7 @@ int main(void) {
     free(test.data);
     dhw = emptydstr();
     d_addcstr(&dhw, "Привет");
-    d_addcstr(&dhw, "Мир");
+    d_addcstr(&dhw, ", Мир");
     d_addch(&dhw, '!');
     test = dstr_to_str(&dhw, true);
     printf("'%s'\n", test.data);
