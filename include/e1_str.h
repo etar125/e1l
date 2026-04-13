@@ -27,4 +27,6 @@ str_t join(str_t *str1, str_t *str2, char with, bool free_strs);
 str_t emptystr();
 int addch(str_t *str, char ch); 
 
+int printstr(FILE *out, str_t *str);
+
 #endif
