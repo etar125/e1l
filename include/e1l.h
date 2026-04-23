@@ -5,21 +5,43 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 
 THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef E1_NSARR_H
-#define E1_NSARR_H
 
-#include "e1_str.h"
+#ifndef E1L_H
+#define E1L_H
+
+#include <stdbool.h>
 #include <stddef.h>
 
-typedef struct {
-    str_t str;
-    size_t *poss;
-    size_t count;
-} nsarr_t;
+/* str */
 
-int nsarr_add(nsarr_t *nsarr, str_t *str);
-int nsarr_remove(nsarr_t *nsarr, size_t at);
-str_t nsarr_getdup(nsarr_t *nsarr, size_t at);
-int nsarr_insert(nsarr_t *nsarr, size_t at, str_t *str);
+/* s1 - main string */
+
+char* readstr();
+void reverse(char *s, size_t l);
+char* join(char *s1, size_t l1, char *s2, size_t l2, char with);
+char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at);
+
+/* dynamic str */
+
+/* asize - actual size
+ * bsize - buffer size */
+
+int d_append(char *ds, size_t *asize, size_t *bsize, char *s, size_t l);
+char* d_shrink(char *ds, size_t *asize, size_t *bsize);
+
+/* sarr */
+
+typedef struct {
+    char *strs;
+    size_t *offsets;
+    size_t count;
+} sarr;
+
+sarr sarr_init(char *s, size_t l);
+int sarr_update(sarr *a);
+int sarr_add(sarr *a, char *s, size_t l);
+int sarr_remove(sarr *a, size_t at);
+int sarr_insert(sarr *a, char *s, size_t l, size_t at);
+char* sarr_getstr(sarr *a, size_t at);
 
 #endif
