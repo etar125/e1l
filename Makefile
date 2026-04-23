@@ -1,6 +1,5 @@
 # Copyright (c) 2026 etar125 Admanse
 # Licensed under ISC (see LICENSE)
-.POSIX:
 
 include config.mk
 
