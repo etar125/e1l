@@ -11,7 +11,7 @@ Licensed under ISC (see LICENSE)
 
 #include "e1l.h"
 
-char* readstr() {
+char* readstr(size_t *outlen) {
     struct termios old_settings, settings;
     tcgetattr(0, &old_settings);
     settings = old_settings;
@@ -19,7 +19,7 @@ char* readstr() {
     settings.c_cc[VTIME] = 0;
     settings.c_cc[VMIN] = 1;
     tcsetattr(0, TCSANOW, &settings);
-    char c = 0;
+    char c;
     size_t i = 0, size = 32;
     char *str = malloc(32);
     while (1) {
@@ -44,6 +44,7 @@ char* readstr() {
         size = i + 1;
         str = realloc(str, size);
     }
+    if (outlen) { *outlen = size; }
     return str;
 }
 
@@ -58,10 +59,10 @@ void reverse(char *s, size_t l) {
     } return;
 }
 
-char* join(char *s1, size_t l1, char *s2, size_t l2, char with) {
+char* join(char *s1, size_t l1, char *s2, size_t l2, char with, size_t *outlen) {
     return NULL;
 }
 
-char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at) {
+char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen) {
     return NULL;
 }

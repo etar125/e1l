@@ -9,6 +9,7 @@ Licensed under ISC (see LICENSE)
 sarr sarr_init(char *s, size_t l) {
     sarr ret;
     ret.strs = NULL;
+    ret.size = 0;
     ret.offsets = NULL;
     ret.count = 0;
     return ret;
@@ -30,6 +31,6 @@ int sarr_insert(sarr *a, char *s, size_t l, size_t at){
     return -1;
 }
 
-char* sarr_getstr(sarr *a, size_t at){
+char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
     return NULL;
 }

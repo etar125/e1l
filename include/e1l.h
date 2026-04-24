@@ -16,10 +16,10 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 
 /* s1 - main string */
 
-char* readstr();
+char* readstr(size_t *outlen);
 void reverse(char *s, size_t l);
-char* join(char *s1, size_t l1, char *s2, size_t l2, char with);
-char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at);
+char* join(char *s1, size_t l1, char *s2, size_t l2, char with, size_t *outlen);
+char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen);
 
 /* dynamic str */
 
@@ -33,6 +33,7 @@ char* d_shrink(char *ds, size_t *asize, size_t *bsize);
 
 typedef struct {
     char *strs;
+    size_t size;
     size_t *offsets;
     size_t count;
 } sarr;
@@ -42,6 +43,6 @@ int sarr_update(sarr *a);
 int sarr_add(sarr *a, char *s, size_t l);
 int sarr_remove(sarr *a, size_t at);
 int sarr_insert(sarr *a, char *s, size_t l, size_t at);
-char* sarr_getstr(sarr *a, size_t at);
+char* sarr_getstr(sarr *a, size_t at, size_t *outlen);
 
 #endif
