@@ -30,7 +30,6 @@ char* readstr(size_t *outlen) {
                 str = realloc(str, size);
             }
             str[i] = '\0';
-            i++;
             break;
         }
         if (i == size) {
@@ -41,7 +40,7 @@ char* readstr(size_t *outlen) {
     }
     tcsetattr(0, TCSANOW, &old_settings);
     if (i < size) {
-        size = i + 1;
+        size = i;
         str = realloc(str, size);
     }
     if (outlen) { *outlen = size; }
@@ -59,8 +58,20 @@ void reverse(char *s, size_t l) {
     } return;
 }
 
-char* join(char *s1, size_t l1, char *s2, size_t l2, char with, size_t *outlen) {
-    return NULL;
+char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
+           size_t *outlen) {
+    char *ret = NULL;
+    size_t len = l1 + l2 + (with ? wl : 0);
+    ret = malloc(len + 1);
+    if (!ret) { return NULL; }
+    memcpy(ret, s1, l1);
+    if (with) {
+        memcpy(ret + l1, with, wl);
+    }
+    memcpy(ret + l1 + (with ? wl : 0), s2, l2);
+    ret[len] = '\0';
+    if (outlen) { *outlen = len; }
+    return ret;
 }
 
 char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen) {

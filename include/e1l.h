@@ -18,7 +18,8 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 
 char* readstr(size_t *outlen);
 void reverse(char *s, size_t l);
-char* join(char *s1, size_t l1, char *s2, size_t l2, char with, size_t *outlen);
+char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
+           size_t *outlen);
 char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen);
 
 /* dynamic str */

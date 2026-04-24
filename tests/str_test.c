@@ -7,11 +7,13 @@
 int main(void) {
     puts("=== e1_str test ===");
     printf("Type something: ");
-    char *text = readstr(NULL);
-    printf("%s\n", text);
-    reverse(text, strlen(text));
-    printf("%s\n", text);
-
+    size_t len;
+    char *text = readstr(&len);
+    char *pre = strdup(text);
+    reverse(text, len);
+    char *jj = join(text, len, pre, len, ", ", 2, NULL);
+    printf("%s\n", jj);
     free(text);
+    free(pre);
     return 0;
 }
