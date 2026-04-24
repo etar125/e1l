@@ -5,8 +5,16 @@ include config.mk
 
 SRC = src/e1_str.c src/e1_sarr.c src/e1_dstr.c
 OBJ = $(SRC:src/%.c=bin/%.o)
+TSRC = tests/str_test.c
+TEXE = $(TSRC:tests/%.c=tests/bin/%)
 
-all: bin/libe1l.a
+all: bin/libe1l.a tests
+
+tests: $(TEXE)
+
+tests/bin/%: tests/%.c $(OBJ) include/e1l.h config.mk
+	@mkdir -p tests/bin
+	$(CC) $(ECFLAGS) $(OBJ) $< -o $@
 
 bin/%.o: src/%.c include/e1l.h config.mk
 	@mkdir -p bin
@@ -18,6 +26,7 @@ bin/libe1l.a: $(OBJ)
 
 clean:
 	rm -rf bin
+	rm -rf tests/bin
 
 install: libe1l.a
 	mkdir -p $(DESTDIR)$(PREFIX)/lib
@@ -29,4 +38,4 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/lib/libe1l.a
 	rm -f $(DESTDIR)$(PREFIX)/include/e1l.h
 
-.PHONY: all clean install uninstall
+.PHONY: all clean install uninstall tests

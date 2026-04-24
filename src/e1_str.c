@@ -4,14 +4,58 @@ Copyright (c) 2026 etar125 Admanse
 Licensed under ISC (see LICENSE)
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <termios.h>
+
 #include "e1l.h"
 
 char* readstr() {
-    return NULL;
+    struct termios old_settings, settings;
+    tcgetattr(0, &old_settings);
+    settings = old_settings;
+    settings.c_lflag &= ~(ICANON);
+    settings.c_cc[VTIME] = 0;
+    settings.c_cc[VMIN] = 1;
+    tcsetattr(0, TCSANOW, &settings);
+    char c = 0;
+    size_t i = 0, size = 32;
+    char *str = malloc(32);
+    while (1) {
+        scanf("%c", &c);
+        if (c == '\n') {
+            if (i == size) {
+                size += 1;
+                str = realloc(str, size);
+            }
+            str[i] = '\0';
+            i++;
+            break;
+        }
+        if (i == size) {
+            size += size / 2;
+            str = realloc(str, size);
+        }
+        str[i++] = c;
+    }
+    tcsetattr(0, TCSANOW, &old_settings);
+    if (i < size) {
+        size = i + 1;
+        str = realloc(str, size);
+    }
+    return str;
 }
 
 void reverse(char *s, size_t l) {
-    return;
+    size_t start = 0;
+    size_t end = (l == 0) ? 0 : l - 1;
+    while (start < end) {
+        char t = s[start];
+        s[start] = s[end];
+        s[end] = t;
+        end--, start++;
+    } return;
 }
 
 char* join(char *s1, size_t l1, char *s2, size_t l2, char with) {
