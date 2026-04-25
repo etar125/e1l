@@ -30,12 +30,11 @@ int sarr_update(sarr *a) {
     }
     if (i != 0) { ofs[c++] = s; }
     if (c < ac) {
-        ac = c;
-        ofs = realloc(ofs, sizeof(size_t) * ac);
+        ofs = realloc(ofs, sizeof(size_t) * c);
     }
     if (a->offsets) { free(a->offsets); }
     a->offsets = ofs;
-    a->count = ac;
+    a->count = c;
     return 0;
 }
 
@@ -51,11 +50,9 @@ sarr sarr_empty() {
 sarr sarr_init(char *s, size_t l) {
     sarr ret;
     if (l > 0 && s[l - 1] == '\n') {
-        ret.strs = realloc(s, l);
-        ret.size = l - 1;
+        ret.strs = estrndupl(s, l - 1, &ret.size);
     } else {
-        ret.strs = estrdup(s);
-        ret.size = l;
+        ret.strs = estrndupl(s, l, &ret.size);
     }
     ret.offsets = NULL;
     ret.count = 0;
@@ -66,17 +63,16 @@ sarr sarr_init(char *s, size_t l) {
 int sarr_add(sarr *a, char *s, size_t l) {
     size_t size;
     if (!a->strs || a->size == 0) {
-        a->strs = estrndupl(s, l, &size);
-        if (!a->strs) { return 1; }
-        a->size = size;
+        *a = sarr_init(s, l);
+        return 0;
     } else {
         char *nar = join(a->strs, a->size, s, l, "\0", 1, &size);
         if (!nar) { return 1; }
         free(a->strs);
         a->strs = nar;
         a->size = size;
+        return sarr_update(a);
     }
-    return sarr_update(a);
 }
 
 int sarr_remove(sarr *a, size_t at) {
@@ -127,7 +123,7 @@ char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
     size_t pos = a->offsets[at];
     char *r = &a->strs[pos];
     if (outlen) {
-        *outlen = (at < a->count ? a->offsets[at + 1] : a->size) - pos;
+        *outlen = (at + 1 < a->count ? a->offsets[at + 1] : a->size) - pos;
     }
     return r;
 }

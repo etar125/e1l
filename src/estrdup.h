@@ -14,10 +14,26 @@
 
 static char* estrdup(const char *s) {
     if (!s) { return NULL; }
-    size_t len = strlen(s) + 1;
-    char *ret = malloc(len);
+    size_t len = strlen(s);
+    char *ret = malloc(len + 1);
     if (!ret) { return NULL; }
     memcpy(ret, s, len);
+    ret[len] = '\0';
+    return ret;
+}
+
+#endif
+
+#ifdef ESTRDUPL
+
+static char* estrdupl(const char *s, size_t *outlen) {
+    if (!s) { return NULL; }
+    size_t len = strlen(s);
+    char *ret = malloc(len + 1);
+    if (!ret) { return NULL; }
+    memcpy(ret, s, len);
+    ret[len] = '\0';
+    if (outlen) { *outlen = len; }
     return ret;
 }
 
