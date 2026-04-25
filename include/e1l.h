@@ -27,8 +27,8 @@ char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen
 /* asize - actual size
  * bsize - buffer size */
 
-int d_append(char *ds, size_t *asize, size_t *bsize, char *s, size_t l);
-char* d_shrink(char *ds, size_t *asize, size_t *bsize);
+int d_append(char **ds, size_t *asize, size_t *bsize, char *s, size_t l);
+char* d_shrink(char *ds, size_t asize, size_t bsize);
 
 /* sarr */
 
