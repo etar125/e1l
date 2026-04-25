@@ -8,6 +8,8 @@ Licensed under ISC (see LICENSE)
 #include <stdlib.h>
 #include <string.h>
 
+#define ESTRDUP
+#include "estrdup.h"
 #include "e1l.h"
 
 int sarr_update(sarr *a) {
@@ -41,7 +43,7 @@ sarr sarr_init(char *s, size_t l) {
         ret.strs = realloc(s, l);
         ret.size = l - 1;
     } else {
-        ret.strs = strdup(s);
+        ret.strs = estrdup(s);
         ret.size = l;
     }
     sarr_update(&ret);
