@@ -9,6 +9,7 @@ Licensed under ISC (see LICENSE)
 #include <string.h>
 
 #define ESTRDUP
+#define ESTRNDUPL
 #include "estrdup.h"
 #include "e1l.h"
 
@@ -56,12 +57,26 @@ sarr sarr_init(char *s, size_t l) {
         ret.strs = estrdup(s);
         ret.size = l;
     }
+    ret.offsets = NULL;
+    ret.count = 0;
     sarr_update(&ret);
     return ret;
 }
 
-int sarr_add(sarr *a, char *s, size_t l){
-    return -1;
+int sarr_add(sarr *a, char *s, size_t l) {
+    size_t size;
+    if (!a->strs || a->size == 0) {
+        a->strs = estrndupl(s, l, &size);
+        if (!a->strs) { return 1; }
+        a->size = size;
+    } else {
+        char *nar = join(a->strs, a->size, s, l, "\0", 1, &size);
+        if (!nar) { return 1; }
+        free(a->strs);
+        a->strs = nar;
+        a->size = size;
+    }
+    return sarr_update(a);
 }
 
 int sarr_remove(sarr *a, size_t at){

@@ -14,6 +14,8 @@ Hello 5";
     sarr a = sarr_init(basa, strlen(basa));
     printf("3: %s\n", sarr_getstr(&a, 2, NULL));
     printf("5: %s\n", sarr_getstr(&a, 4, NULL));
+    sarr_add(&a, "Hello 6", strlen("Hello 6"));
+    printf("6: %s\n", sarr_getstr(&a, 5, NULL));
 
     free(a.strs);
     free(a.offsets);

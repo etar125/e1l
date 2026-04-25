@@ -40,4 +40,22 @@ static char* estrndup(const char *s, size_t n) {
 
 #endif
 
+#ifdef ESTRNDUPL
+
+static char* estrndupl(const char *s, size_t n, size_t *outlen) {
+    if (!s) { return NULL; }
+    
+    size_t len = 0;
+    for (; len < n && s[len] != '\0'; len++);
+
+    char *ret = malloc(len + 1);
+    if (!ret) { return NULL; }
+    memcpy(ret, s, len);
+    ret[len] = '\0';
+    if (outlen) { *outlen = len; }
+    return ret;
+}
+
+#endif
+
 #endif
