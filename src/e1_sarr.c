@@ -79,8 +79,25 @@ int sarr_add(sarr *a, char *s, size_t l) {
     return sarr_update(a);
 }
 
-int sarr_remove(sarr *a, size_t at){
-    return -1;
+int sarr_remove(sarr *a, size_t at) {
+    if (at > a->count) { return 1; }
+    char *strs = a->strs;
+    size_t size = a->size;
+
+    size_t start = a->offsets[at];
+    if (start) { start--; }
+    size_t end = size;
+    if (at + 1 < a->count) {
+        end = a->offsets[at + 1];
+    }
+    
+    size_t nsize;
+    char *nstrs = join(strs, start, &strs[end], size - end, "\0", 1, &nsize);
+    if (!nstrs) { return 1; }
+    free(strs);
+    a->strs = nstrs;
+    a->size = nsize;
+    return sarr_update(a);
 }
 
 int sarr_insert(sarr *a, char *s, size_t l, size_t at){
