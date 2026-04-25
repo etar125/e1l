@@ -41,6 +41,7 @@ install: bin/libe1l.a bin/libe1l.so
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/lib/libe1l.a
+	rm -f $(DESTDIR)$(PREFIX)/lib/libe1l.so
 	rm -f $(DESTDIR)$(PREFIX)/include/e1l.h
 
 .PHONY: all clean install uninstall tests
