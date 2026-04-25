@@ -13,9 +13,13 @@ int main(void) {
     char *text = readstr(&len);
     char *pre = estrdup(text);
     reverse(text, len);
-    char *jj = join(text, len, pre, len, ", ", 2, NULL);
-    printf("%s\n", jj);
+    size_t jjlen;
+    char *jj = join(text, len, pre, len, ", ", 2, &jjlen);
+    char *ii = insert(jj, jjlen, ", UwU", 5, len, NULL);
+    printf("%s\n%s\n", jj, ii);
     free(text);
     free(pre);
+    free(jj);
+    free(ii);
     return 0;
 }

@@ -39,11 +39,11 @@ char* readstr(size_t *outlen) {
         str[i++] = c;
     }
     tcsetattr(0, TCSANOW, &old_settings);
-    if (i < size) {
-        size = i;
-        str = realloc(str, size);
+    if (i + 1 < size) {
+        str = realloc(str, i + 1);
+        str[i] = '\0';
     }
-    if (outlen) { *outlen = size; }
+    if (outlen) { *outlen = i; }
     return str;
 }
 
@@ -75,5 +75,14 @@ char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
 }
 
 char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen) {
-    return NULL;
+    if (!s1 || !s2 || at > l1) { return NULL; }
+    size_t size = l1 + l2;
+    char *ret = malloc(size + 1);
+    if (!ret) { return NULL; }
+    memcpy(ret, s1, at);
+    memcpy(&ret[at], s2, l2);
+    memcpy(&ret[at + l2], &s1[at], l1 - at);
+    ret[size] = '\0';
+    if (outlen) { *outlen = size; }
+    return ret;
 }
