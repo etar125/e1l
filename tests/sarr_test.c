@@ -21,7 +21,8 @@ Hello 5";
     printf("6: %s\n", sarr_getstr(&a, 5, NULL));
     EC(sarr_remove(&a, 1))
     printf("2: %s\n", sarr_getstr(&a, 1, NULL));
-
+    EC(sarr_insert(&a, "Hello 2 (again!!)", strlen("Hello 2 (again!!)"), 1))
+    printf("2: %s\n", sarr_getstr(&a, 1, NULL));
     free(a.strs);
     free(a.offsets);
     return 0;

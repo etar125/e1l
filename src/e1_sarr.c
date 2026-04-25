@@ -101,7 +101,25 @@ int sarr_remove(sarr *a, size_t at) {
 }
 
 int sarr_insert(sarr *a, char *s, size_t l, size_t at){
-    return -1;
+    if (!s || l == 0) { return 0; } /* не прям чтобы ошибка */
+    if (at > a->count) { return 1; }
+    char *strs = a->strs;
+    size_t size = a->size;
+    
+    size_t pos = a->offsets[at];
+    size_t nsize = size + l + 1;
+    char *nstrs = malloc(nsize + 1);
+    //memset(nstrs, 0, nsize + 1);
+    if (!nstrs) { return 1; }
+    memcpy(nstrs, strs, pos);
+    memcpy(&nstrs[pos], s, l);
+    nstrs[pos + l] = '\0';
+    memcpy(&nstrs[pos + l + 1], &strs[pos], size - pos);
+    nstrs[nsize] = '\0';
+    free(strs);
+    a->strs = nstrs;
+    a->size = nsize;
+    return sarr_update(a);
 }
 
 char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
