@@ -32,9 +32,19 @@ int sarr_update(sarr *a) {
         ac = c;
         ofs = realloc(ofs, sizeof(size_t) * ac);
     }
+    if (a->offsets) { free(a->offsets); }
     a->offsets = ofs;
     a->count = ac;
     return 0;
+}
+
+sarr sarr_empty() {
+    sarr ret;
+    ret.strs = NULL;
+    ret.size = 0;
+    ret.offsets = NULL;
+    ret.count = 0;
+    return ret;
 }
 
 sarr sarr_init(char *s, size_t l) {

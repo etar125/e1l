@@ -39,6 +39,7 @@ typedef struct {
     size_t count;
 } sarr;
 
+sarr sarr_empty();
 sarr sarr_init(char *s, size_t l);
 int sarr_update(sarr *a);
 int sarr_add(sarr *a, char *s, size_t l);
