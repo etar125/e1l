@@ -28,7 +28,7 @@ clean:
 	rm -rf bin
 	rm -rf tests/bin
 
-install: libe1l.a
+install: bin/libe1l.a
 	mkdir -p $(DESTDIR)$(PREFIX)/lib
 	mkdir -p $(DESTDIR)$(PREFIX)/include
 	cp -f bin/libe1l.a $(DESTDIR)$(PREFIX)/lib/
