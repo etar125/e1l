@@ -8,7 +8,7 @@ Licensed under ISC (see LICENSE)
 #include <stdlib.h>
 #include <string.h>
 
-#define ESTRDUP
+/* #define ESTRDUP */
 #define ESTRNDUPL
 #include "estrdup.h"
 #include "e1l.h"
@@ -123,7 +123,7 @@ char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
     size_t pos = a->offsets[at];
     char *r = &a->strs[pos];
     if (outlen) {
-        *outlen = (at + 1 < a->count ? a->offsets[at + 1] : a->size) - pos;
+        *outlen = (at + 1 < a->count ? a->offsets[at + 1] - 1 : a->size) - pos;
     }
     return r;
 }
