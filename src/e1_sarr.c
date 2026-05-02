@@ -47,7 +47,7 @@ sarr sarr_empty() {
     return ret;
 }
 
-sarr sarr_init(char *s, size_t l) {
+sarr sarr_init(const char *s, size_t l) {
     sarr ret;
     if (l > 0 && s[l - 1] == '\n') {
         ret.strs = estrndupl(s, l - 1, &ret.size);
@@ -60,7 +60,7 @@ sarr sarr_init(char *s, size_t l) {
     return ret;
 }
 
-int sarr_add(sarr *a, char *s, size_t l) {
+int sarr_add(sarr *a, const char *s, size_t l) {
     size_t size;
     if (!a->strs || a->size == 0) {
         *a = sarr_init(s, l);
@@ -96,7 +96,7 @@ int sarr_remove(sarr *a, size_t at) {
     return sarr_update(a);
 }
 
-int sarr_insert(sarr *a, char *s, size_t l, size_t at){
+int sarr_insert(sarr *a, const char *s, size_t l, size_t at){
     if (!s || l == 0) { return 0; } /* не прям чтобы ошибка */
     if (at > a->count) { return 1; }
     char *strs = a->strs;
@@ -124,6 +124,7 @@ char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
     char *r = &a->strs[pos];
     if (outlen) {
         *outlen = (at + 1 < a->count ? a->offsets[at + 1] - 1 : a->size) - pos;
+
     }
     return r;
 }

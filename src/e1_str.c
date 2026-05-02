@@ -58,7 +58,7 @@ void reverse(char *s, size_t l) {
     } return;
 }
 
-char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
+char* join(char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl,
            size_t *outlen) {
     char *ret = NULL;
     size_t len = l1 + l2 + (with ? wl : 0);
@@ -74,7 +74,7 @@ char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
     return ret;
 }
 
-char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen) {
+char* insert(char *s1, size_t l1, const char *s2, size_t l2, size_t at, size_t *outlen) {
     if (!s1 || !s2 || at > l1) { return NULL; }
     size_t size = l1 + l2;
     char *ret = malloc(size + 1);

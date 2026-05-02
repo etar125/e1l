@@ -18,16 +18,16 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 
 char* readstr(size_t *outlen);
 void reverse(char *s, size_t l);
-char* join(char *s1, size_t l1, char *s2, size_t l2, char *with, size_t wl,
+char* join(char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl,
            size_t *outlen);
-char* insert(char *s1, size_t l1, char *s2, size_t l2, size_t at, size_t *outlen);
+char* insert(char *s1, size_t l1, const char *s2, size_t l2, size_t at, size_t *outlen);
 
 /* dynamic str */
 
 /* asize - actual size
  * bsize - buffer size */
 
-int d_append(char **ds, size_t *asize, size_t *bsize, char *s, size_t l);
+int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l);
 char* d_shrink(char *ds, size_t asize, size_t bsize);
 
 /* sarr */
@@ -40,11 +40,11 @@ typedef struct {
 } sarr;
 
 sarr sarr_empty();
-sarr sarr_init(char *s, size_t l);
+sarr sarr_init(const char *s, size_t l);
 int sarr_update(sarr *a);
-int sarr_add(sarr *a, char *s, size_t l);
+int sarr_add(sarr *a, const char *s, size_t l);
 int sarr_remove(sarr *a, size_t at);
-int sarr_insert(sarr *a, char *s, size_t l, size_t at);
+int sarr_insert(sarr *a, const char *s, size_t l, size_t at);
 char* sarr_getstr(sarr *a, size_t at, size_t *outlen);
 
 #endif

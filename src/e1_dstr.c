@@ -10,7 +10,7 @@ Licensed under ISC (see LICENSE)
 
 #include "e1l.h"
 
-int d_append(char **ds, size_t *asize, size_t *bsize, char *s, size_t l) {
+int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l) {
     if (!s || l == 0) { return 0; }
     if (!ds || !asize || !bsize || *asize > *bsize) { return 1; }
     size_t as = *asize, bs = *bsize;
