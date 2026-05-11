@@ -11,14 +11,17 @@ Licensed under ISC (see LICENSE)
 #include "e1l.h"
 
 int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l) {
+    size_t as, bs;
+    char *nds;
+
     if (!s || l == 0) { return 0; }
     if (!ds || !asize || !bsize || *asize > *bsize) { return 1; }
-    size_t as = *asize, bs = *bsize;
+    as = *asize, bs = *bsize;
     if (bs == 0) { bs = 32; }
     while (as + l >= bs) {
         bs += bs / 2;
     }
-    char *nds = realloc(*ds, bs);
+    nds = realloc(*ds, bs);
     if (!nds) { return 1; }
     memcpy(&nds[as], s, l);
     as += l;
@@ -30,8 +33,10 @@ int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l) {
 }
 
 char* d_shrink(char *ds, size_t asize, size_t bsize) {
+    char *ret;
+
     if (!ds || asize > bsize) { return NULL; }
-    char *ret = malloc(asize + 1);
+    ret = malloc(asize + 1);
     if (!ret) { return NULL; }
     memcpy(ret, ds, asize);
     ret[asize] = '\0';

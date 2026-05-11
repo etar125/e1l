@@ -13,15 +13,16 @@ Licensed under ISC (see LICENSE)
 
 char* readstr(size_t *outlen) {
     struct termios old_settings, settings;
+    char c, *str;
+    size_t i = 0, size = 32;
+
     tcgetattr(0, &old_settings);
     settings = old_settings;
     settings.c_lflag &= ~(ICANON);
     settings.c_cc[VTIME] = 0;
     settings.c_cc[VMIN] = 1;
     tcsetattr(0, TCSANOW, &settings);
-    char c;
-    size_t i = 0, size = 32;
-    char *str = malloc(32);
+    str = malloc(32);
     while (1) {
         scanf("%c", &c);
         if (c == '\n') {
@@ -50,8 +51,10 @@ char* readstr(size_t *outlen) {
 void reverse(char *s, size_t l) {
     size_t start = 0;
     size_t end = (l == 0) ? 0 : l - 1;
+    char t;
+
     while (start < end) {
-        char t = s[start];
+        t = s[start];
         s[start] = s[end];
         s[end] = t;
         end--, start++;
@@ -75,9 +78,12 @@ char* join(char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl
 }
 
 char* insert(char *s1, size_t l1, const char *s2, size_t l2, size_t at, size_t *outlen) {
+    size_t size;
+    char *ret;
+
     if (!s1 || !s2 || at > l1) { return NULL; }
-    size_t size = l1 + l2;
-    char *ret = malloc(size + 1);
+    size = l1 + l2;
+    ret = malloc(size + 1);
     if (!ret) { return NULL; }
     memcpy(ret, s1, at);
     memcpy(&ret[at], s2, l2);

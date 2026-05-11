@@ -3,7 +3,7 @@ SOVERSION = 0
 
 PREFIX = /usr/local
 
-ECFLAGS = -Iinclude -std=c99 -pedantic -D_XOPEN_SOURCE=700 -Wall $(CFLAGS)
+ECFLAGS = -Iinclude -std=c89 -pedantic -Wall $(CFLAGS)
 
 CC = cc
 AR = ar

@@ -8,13 +8,13 @@
 
 int main(void) {
     int callcount = 1;
-    puts("=== e1_dstr test ===");
-    char *ds = NULL;
+    char *ds = NULL, *s = NULL;
     size_t asize = 0, bsize = 0;
+    puts("=== e1_dstr test ===");
     EC(d_append(&ds, &asize, &bsize, "Hello", 5))
     printf("%s\n", ds);
     EC(d_append(&ds, &asize, &bsize, ", World!", 8))
-    char *s = d_shrink(ds, asize, bsize);
+    s = d_shrink(ds, asize, bsize);
     printf("%s\n%s\n", ds, s);
     free(ds);
     free(s);

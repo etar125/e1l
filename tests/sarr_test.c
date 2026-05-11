@@ -8,13 +8,14 @@
 
 int main(void) {
     int callcount = 1;
-    puts("=== e1_sarr test ===");
     char *basa = "Hello 1\n\
 Hello 2\n\
 Hello 3\n\
 Hello 4\n\
 Hello 5";
-    sarr a = sarr_init(basa, strlen(basa));
+    sarr a;
+    puts("=== e1_sarr test ===");
+    a = sarr_init(basa, strlen(basa));
     printf("3: %s\n", sarr_getstr(&a, 2, NULL));
     printf("5: %s\n", sarr_getstr(&a, 4, NULL));
     EC(sarr_add(&a, "Hello 6", strlen("Hello 6")))

@@ -7,15 +7,15 @@
 #include "e1l.h"
 
 int main(void) {
+    size_t len, jjlen;
+    char *text, *pre, *jj, *ii;
     puts("=== e1_str test ===");
     printf("Type something: ");
-    size_t len;
-    char *text = readstr(&len);
-    char *pre = estrdup(text);
+    text = readstr(&len);
+    pre = estrdup(text);
     reverse(text, len);
-    size_t jjlen;
-    char *jj = join(text, len, pre, len, ", ", 2, &jjlen);
-    char *ii = insert(jj, jjlen, ", UwU", 5, len, NULL);
+    jj = join(text, len, pre, len, ", ", 2, &jjlen);
+    ii = insert(jj, jjlen, ", UwU", 5, len, NULL);
     printf("%s\n%s\n", jj, ii);
     free(text);
     free(pre);
