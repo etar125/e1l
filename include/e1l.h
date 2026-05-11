@@ -9,7 +9,6 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 #ifndef E1L_H
 #define E1L_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 /* str */
