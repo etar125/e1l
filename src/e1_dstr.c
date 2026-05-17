@@ -32,7 +32,7 @@ int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l) {
     return 0;
 }
 
-char* d_shrink(char *ds, size_t asize, size_t bsize) {
+char* d_shrink(const char *ds, size_t asize, size_t bsize) {
     char *ret;
 
     if (!ds || asize > bsize) { return NULL; }
