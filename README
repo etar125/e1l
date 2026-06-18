@@ -1,30 +1,30 @@
 etar125's lib
-=================
-e1l -- моя библиотека, дабы не копировать
-всякое из проекта в проект.
+=============
+e1l -- just my library with functions,
+that i need.
 
-Функции:
+Functions:
 - str:
-    - readstr - базовое чтение из stdin, ждёт \n
-    - reverse - переворачивает строку по байтам (не поддерживает UTF-8)
-    - join - присоединяет вторую строку к первой (можно с помощью текста)
-    - insert - вставляет вторую строку в первую
+    - readstr - basic read from stdin, waits for \n
+    - reverse - reverse string (doesn't support UTF-8)
+    - join - joins 2nd string to 1st
+    - insert - inserts 2nd string in 1st
 - dstr:
-    - d_apppend - добавляет строку к "динамической" строке
-    - d_shrink - ..., делает strdup просто, без запаса
-- sarr (функции имеют префикс sarr_):
-    - структура sarr
-    - empty - создаёт пустой массив
-    - init - создаёт массив из строки
-    - update - обновляет оффсеты
-    - add - добавляет строку
-    - remove - убирает строку
-    - insert - вставляет строку
-    - getstr - возвращает указатель на строку (не дубликат!)
+    - d_append - adds string to "dynamic" string
+    - d_shrink - ..., just does strdup
+- sarr (functions have prefix sarr_):
+    - struct "sarr"
+    - empty - creates empty array
+    - init - creates array from string
+    - update - updates offsets
+    - add - adds strings
+    - remove - removes string
+    - insert - inserts string
+    - getstr - return pointer to string (not duplicate!)
 
-sarr - это строка, в которой элементы разделены с помощью \0.
-Когда писал этот README, подумал, а зачем вообще d_shrink нужон.
-Может уберу.
+sarr is string where elements are split with \0.
+When I was writing this README, I thought, what the actual
+purpose of d_shrink. Will remove it probably.
 
     git clone https://github.com/etar125/e1l.git
     cd e1l
