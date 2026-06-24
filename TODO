@@ -1,2 +1,4 @@
 - split, substr
 - mjoin - multiple joins at once
+- macros.h (llen from n1md, ARG from suckless, some const,
+https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
