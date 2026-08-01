@@ -1,4 +1,10 @@
-- split, substr
-- mjoin - multiple joins at once
+- func: split string
+- func: substring
+- func: mjoin - multiple joins at once
 - macros.h (llen from n1md, ARG from suckless, some const,
 https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
+- estrdup.h as part of e1l: add definitions to e1l.h and implementations to estrdup.c
+- func: sarr_join
+- func: sarr_insert_sarr
+- rename current sarr to zarr, because it is not simple anymore
+- ^ and add old sarr implementation
