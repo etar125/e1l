@@ -1,7 +1,6 @@
 etar125's lib
 =============
-e1l -- just my library with functions,
-that i need.
+e1l -- just my library with functions, that i need.
 
 Functions:
 - str:
@@ -12,8 +11,8 @@ Functions:
 - dstr:
     - d_append - adds string to "dynamic" string
     - d_shrink - ..., just does strdup
-- sarr (functions have prefix sarr_):
-    - struct "sarr"
+- zarr (functions have prefix zarr_):
+    - struct "zarr"
     - empty - creates empty array
     - init - creates array from string
     - update - updates offsets
@@ -22,7 +21,7 @@ Functions:
     - insert - inserts string
     - getstr - return pointer to string (not duplicate!)
 
-sarr is string where elements are split with \0.
+zarr is string where elements are split with \0.
 When I was writing this README, I thought, what the actual
 purpose of d_shrink. Will remove it probably.
 
