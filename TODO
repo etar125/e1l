@@ -3,7 +3,6 @@
 - func: mjoin - multiple joins at once
 - macros.h (llen from n1md, ARG from suckless, some const,
 https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
-- func: sarr_join
-- func: sarr_insert_sarr
-- rename current sarr to zarr, because it is not simple anymore
-- ^ and add old sarr implementation
+- func: zarr_join
+- func: zarr_insert_zarr
+- add old sarr implementation

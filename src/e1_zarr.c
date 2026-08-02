@@ -1,5 +1,5 @@
 /*
-sarr
+zarr
 Copyright (c) 2026 etar125 Admanse
 Licensed under ISC (see LICENSE)
 */
@@ -11,7 +11,7 @@ Licensed under ISC (see LICENSE)
 #include "estrdup.h"
 #include "e1l.h"
 
-int sarr_update(sarr *a) {
+int zarr_update(zarr *a) {
     size_t ac = 8, s = 0, c = 0, i = 0, *ofs;
 
     ofs = malloc(sizeof(size_t) * 8);
@@ -36,8 +36,8 @@ int sarr_update(sarr *a) {
     return 0;
 }
 
-sarr sarr_empty() {
-    sarr ret;
+zarr zarr_empty() {
+    zarr ret;
     ret.strs = NULL;
     ret.size = 0;
     ret.offsets = NULL;
@@ -45,8 +45,8 @@ sarr sarr_empty() {
     return ret;
 }
 
-sarr sarr_init(const char *s, size_t l) {
-    sarr ret;
+zarr zarr_init(const char *s, size_t l) {
+    zarr ret;
     if (l > 0 && s[l - 1] == '\n') {
         ret.strs = estrndupl(s, l - 1, &ret.size);
     } else {
@@ -54,16 +54,16 @@ sarr sarr_init(const char *s, size_t l) {
     }
     ret.offsets = NULL;
     ret.count = 0;
-    sarr_update(&ret);
+    zarr_update(&ret);
     return ret;
 }
 
-int sarr_add(sarr *a, const char *s, size_t l) {
+int zarr_add(zarr *a, const char *s, size_t l) {
     size_t size;
     char *nar;
 
     if (!a->strs || a->size == 0) {
-        *a = sarr_init(s, l);
+        *a = zarr_init(s, l);
         return 0;
     } else {
         nar = join(a->strs, a->size, s, l, "\0", 1, &size);
@@ -71,11 +71,11 @@ int sarr_add(sarr *a, const char *s, size_t l) {
         free(a->strs);
         a->strs = nar;
         a->size = size;
-        return sarr_update(a);
+        return zarr_update(a);
     }
 }
 
-int sarr_remove(sarr *a, size_t at) {
+int zarr_remove(zarr *a, size_t at) {
     char *strs, *nstrs;
     size_t size, start, end, nsize;
 
@@ -95,10 +95,10 @@ int sarr_remove(sarr *a, size_t at) {
     free(strs);
     a->strs = nstrs;
     a->size = nsize;
-    return sarr_update(a);
+    return zarr_update(a);
 }
 
-int sarr_insert(sarr *a, const char *s, size_t l, size_t at){
+int zarr_insert(zarr *a, const char *s, size_t l, size_t at){
     char *strs, *nstrs;
     size_t size, nsize, pos;
 
@@ -120,10 +120,10 @@ int sarr_insert(sarr *a, const char *s, size_t l, size_t at){
     free(strs);
     a->strs = nstrs;
     a->size = nsize;
-    return sarr_update(a);
+    return zarr_update(a);
 }
 
-char* sarr_getstr(sarr *a, size_t at, size_t *outlen) {
+char* zarr_getstr(zarr *a, size_t at, size_t *outlen) {
     size_t pos;
     char *r;
 
