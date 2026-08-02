@@ -8,8 +8,6 @@ Licensed under ISC (see LICENSE)
 #include <stdlib.h>
 #include <string.h>
 
-/* #define ESTRDUP */
-#define ESTRNDUPL
 #include "estrdup.h"
 #include "e1l.h"
 

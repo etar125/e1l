@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ESTRDUP
 #include "estrdup.h"
 #include "e1l.h"
 

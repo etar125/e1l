@@ -3,7 +3,7 @@
 
 include config.mk
 
-SRC = src/e1_str.c src/e1_sarr.c src/e1_dstr.c
+SRC = src/e1_str.c src/e1_sarr.c src/e1_dstr.c src/estrdup.c
 OBJ = $(SRC:src/%.c=bin/%.o)
 OBJ_SHARED = $(SRC:src/%.c=bin/%_shared.o)
 TSRC = tests/str_test.c tests/sarr_test.c tests/dstr_test.c

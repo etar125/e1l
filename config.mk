@@ -1,5 +1,5 @@
-VERSION = 0.5.5
-SOVERSION = 0
+VERSION = 0.6.0
+SOVERSION = 1
 
 PREFIX = /usr/local
 
