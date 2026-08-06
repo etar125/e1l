@@ -41,7 +41,7 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     size_t ol = *sarrlen, nl = 0, l1 = 0, l2 = 0,
         cur = 0, i;
 
-    if (sarrlen == 0) { return 0; }
+    if (oa == NULL || ol == 0) { return 1; }
 
     for (i = 0; i < ol && cur != at; i++) {
         if (oa[i] == '\n') { cur++; }
@@ -74,6 +74,25 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     return 0;
 }
 
-char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen);
+char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
+    char *s = NULL;
+    size_t l = 0, cur = 0, i, start;
+
+    if (sarr == NULL || sarrlen == 0) { return NULL; }
+
+    for (i = 0; i < sarrlen && cur != at; i++) {
+        if (sarr[i] == '\n') { cur++; }
+    }
+    if (i >= sarrlen || cur != at) { return NULL; }
+    start = (i == 0 ? 0 : i + 1);
+    for (; i < sarrlen && sarr[i] != '\n'; i++);
+    l = sarrlen - i;
+    s = malloc(l + 1);
+    if (!s) { return NULL; }
+    memcpy(s, sarr + start, l);
+    s[l] = '\0';
+    if (outlen) { *outlen = l; }
+    return s;
+}
 
 int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len);
