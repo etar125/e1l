@@ -53,5 +53,6 @@ int sarr_add(char **sarr, size_t *sarrlen, char *str, size_t len);
 int sarr_remove(char **sarr, size_t *sarrlen, size_t at);
 char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen);
 int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len);
+int sarr_normalize(char **sarr, size_t *sarrlen);
 
 #endif
