@@ -95,4 +95,30 @@ char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
     return s;
 }
 
-int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len);
+int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len) {
+    char *oa = *sarr, *na = NULL, *ka;
+    size_t ol = *sarrlen, nl = 0, i, cur = 0;
+
+    if (!oa || ol == 0 || !str || len == 0) { return 1; }
+
+    for (i = 0; i < ol && cur != at; i++) {
+        if (oa[i] == '\n') { cur++; }
+    }
+    if (i >= ol || cur != at) { return 1; }
+    nl = ol + len + 1;
+    na = malloc(nl + 1);
+    if (!na) { return 1; }
+    ka = na;
+    memcpy(ka, oa, i);
+    ka += i;
+    memcpy(ka, str, len);
+    ka += len;
+    ka[0] = '\n';
+    memcpy(ka + 1, oa + i, ol - i);
+    na[nl] = '\0';
+
+    free(oa);
+    *sarr = na;
+    *sarrlen = nl;
+    return 0;
+}
