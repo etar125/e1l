@@ -41,7 +41,7 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     size_t ol = *sarrlen, nl = 0, l1 = 0, l2 = 0,
         cur = 0, i;
 
-    if (oa == NULL || ol == 0) { return 1; }
+    if (!oa || ol == 0) { return 1; }
 
     for (i = 0; i < ol && cur != at; i++) {
         if (oa[i] == '\n') { cur++; }
@@ -78,7 +78,7 @@ char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
     char *s = NULL;
     size_t l = 0, cur = 0, i, start;
 
-    if (sarr == NULL || sarrlen == 0) { return NULL; }
+    if (!sarr || sarrlen == 0) { return NULL; }
 
     for (i = 0; i < sarrlen && cur != at; i++) {
         if (sarr[i] == '\n') { cur++; }
