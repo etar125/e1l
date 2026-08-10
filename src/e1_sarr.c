@@ -122,3 +122,29 @@ int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len) 
     *sarrlen = nl;
     return 0;
 }
+
+int sarr_normalize(char **sarr, size_t *sarrlen) {
+    char *oa = *sarr, *na = NULL;
+    size_t ol = *sarrlen, i, j;
+
+    if (!oa || ol == 0) { return 1; }
+
+    for (i = 0, j = 0; i < ol; i++, j++) {
+        if (oa[i] == '\n') {
+            for (; i < ol && oa[i] == '\n'; i++);
+            if (i == ol) { break; }
+            oa[j] = '\n';
+        } else if (i != j) { oa[j] = oa[i]; }
+    }
+
+    na = malloc(j + 1);
+    if (!na) { return 1; }
+    memcpy(na, oa, j);
+    na[j] = '\0';
+    free(oa);
+
+    *sarr = na;
+    *sarrlen = j;
+
+    return 0;
+}
