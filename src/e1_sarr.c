@@ -148,3 +148,14 @@ int sarr_normalize(char **sarr, size_t *sarrlen) {
 
     return 0;
 }
+
+size_t sarr_getpos(char *sarr, size_t sarrlen, size_t at) {
+    size_t cur = 0, i;
+
+    if (!sarr || sarrlen == 0) { return 0; }
+
+    for (i = 0; i < sarrlen && cur != at; i++) {
+        if (sarr[i] == '\n') { cur++; }
+    }
+    return i;
+}
