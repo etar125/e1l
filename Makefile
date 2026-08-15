@@ -34,6 +34,9 @@ bin/libe1l.so.$(VERSION): $(OBJ_SHARED)
 	ln -sf libe1l.so.$(VERSION) bin/libe1l.so.$(SOVERSION)
 	ln -sf libe1l.so.$(SOVERSION) bin/libe1l.so
 
+cleanobj:
+	rm -rf $(OBJ) $(OBJ_SHARED)
+
 clean:
 	rm -rf bin
 	rm -rf tests/bin
@@ -52,4 +55,4 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/lib/libe1l.*
 	rm -f $(DESTDIR)$(PREFIX)/include/e1l.h
 
-.PHONY: all clean install uninstall tests
+.PHONY: all cleanobj clean install uninstall tests
