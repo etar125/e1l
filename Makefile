@@ -6,7 +6,7 @@ include config.mk
 SRC = src/e1_str.c src/e1_zarr.c src/e1_dstr.c src/estrdup.c src/e1_sarr.c
 OBJ = $(SRC:src/%.c=bin/%.o)
 OBJ_SHARED = $(SRC:src/%.c=bin/%_shared.o)
-TSRC = tests/str_test.c tests/zarr_test.c tests/dstr_test.c
+TSRC = tests/str_test.c tests/zarr_test.c tests/dstr_test.c tests/sarr_test.c
 TEXE = $(TSRC:tests/%.c=tests/bin/%)
 
 all: bin/libe1l.a bin/libe1l.so.$(VERSION) tests
