@@ -6,3 +6,5 @@ https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
 - func: zarr_join
 - func: zarr_insert_zarr
 - funcs: sarr_tozarr, zarr_tosarr
+- one file per function
+- write documentation
