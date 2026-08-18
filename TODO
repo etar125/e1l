@@ -8,3 +8,4 @@ https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
 - funcs: sarr_tozarr, zarr_tosarr
 - one file per function
 - write documentation
+- rewrite tests
