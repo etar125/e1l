@@ -20,8 +20,18 @@ Functions:
     - remove - removes string
     - insert - inserts string
     - getstr - return pointer to string (not duplicate!)
+- sarr (functions have prefix sarr_):
+    - count - returns count of elements
+    - add - adds string
+    - remove - removes string
+    - getdup - returns duplicate of element
+    - insert - inserts string
+    - getpos - returns position of element
+    - normalize - removes unnecessary newlines
+        (between elements and at the end of sarr)
 
 zarr is string where elements are split with \0.
+sarr is string where elements are split with \n.
 When I was writing this README, I thought, what the actual
 purpose of d_shrink. Will remove it probably.
 
