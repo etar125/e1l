@@ -23,6 +23,10 @@ Hello 5\n", &l),
     printf("Source:\n%s\nEnd of source\n", s);
     EC(sarr_normalize(&s, &l));
     printf("New source:\n%s\nEnd of new source\n", s);
+
+    tl = sarr_getpos(s, l, 1);
+    if (tl != 8) { printf("\033[31merror! %d\n\033[0m", callcount); return 1; } callcount += 1;
+    tl = 0;
     
     t = sarr_getdup(s, l, 2, &tl);
     ECN(t);
@@ -56,6 +60,9 @@ Hello 5\n", &l),
     printf("2: %lu %s\n", tl, t);
     free(t);
     t = NULL;
+
+    tl = sarr_getpos(s, l, 2);
+    if (tl != 26) { printf("\033[31merror! %d\n\033[0m", callcount); return 1; } callcount += 1;
 
     printf("Result:\n%s\nEnd of result\n", s);
 
