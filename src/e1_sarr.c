@@ -84,9 +84,9 @@ char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
         if (sarr[i] == '\n') { cur++; }
     }
     if (i >= sarrlen || cur != at) { return NULL; }
-    start = (i == 0 ? 0 : i + 1);
+    start = i;
     for (; i < sarrlen && sarr[i] != '\n'; i++);
-    l = sarrlen - i;
+    l = i - start;
     s = malloc(l + 1);
     if (!s) { return NULL; }
     memcpy(s, sarr + start, l);
@@ -134,6 +134,7 @@ int sarr_normalize(char **sarr, size_t *sarrlen) {
             for (; i < ol && oa[i] == '\n'; i++);
             if (i == ol) { break; }
             oa[j] = '\n';
+            i--;
         } else if (i != j) { oa[j] = oa[i]; }
     }
 
