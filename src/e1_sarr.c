@@ -13,40 +13,48 @@ Licensed under ISC (see LICENSE)
 
 size_t sarr_count(char *sarr, size_t sarrlen) {
     size_t count = 0, i;
-    if (sarrlen == 0) { return 0; }
+    if (!sarr || sarrlen == 0) { return 0; }
     for (i = 0; i < sarrlen; i++) {
         if (sarr[i] == '\n') { count++; }
     } return count;
 }
 
 int sarr_add(char **sarr, size_t *sarrlen, char *str, size_t len) {
-    char *new = NULL;
-    size_t newlen = 0;
-    if (*sarrlen == 0) {
-        *sarr = NULL;
-        *sarr = estrndupl(str, len, sarrlen);
-        if (!(*sarr)) { return 1; }
+    char *new = NULL, old = NULL;
+    size_t newlen = 0, oldlen = 0;
+
+    if (!str || len == 0) { return 0; }
+    if (!sarr || !sarrlen) { return 1; }
+
+    old = *sarr, oldlen = *sarrlen;
+    
+    if (!old || old == 0) {
+        old = estrndupl(str, len, sarrlen);
+        if (!old) { return 2; }
+        *sarr = old;
         return 0;
     }
-    new = join(*sarr, *sarrlen, str, len, "\n", 1, &newlen);
-    if (!new) { return 1; }
-    free(*sarr);
+    new = join(old, oldlen, str, len, "\n", 1, &newlen);
+    if (!new) { return 3; }
+    free(old);
     *sarr = new;
     *sarrlen = newlen;
     return 0;
 }
 
 int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
-    char *oa = *sarr, *na = NULL, *p2 = NULL;
-    size_t ol = *sarrlen, nl = 0, l1 = 0, l2 = 0,
+    char *oa = NULL, *na = NULL, *p2 = NULL;
+    size_t ol = NULL, nl = 0, l1 = 0, l2 = 0,
         cur = 0, i;
 
-    if (!oa || ol == 0) { return 1; }
+    if (!sarr || !sarrlen) { return 1; }
+    oa = *sarr, ol = *sarrlen;
+    if (!oa || ol == 0) { return 2; }
 
     for (i = 0; i < ol && cur != at; i++) {
         if (oa[i] == '\n') { cur++; }
     }
-    if (i == ol || cur != at) { return 1; }
+    if (i == ol || cur != at) { return 3; }
     l1 = i != 0 ? i - 1 : i;
     for (; i < ol && oa[i] != '\n'; i++);
     i++;
@@ -56,7 +64,7 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
             *sarrlen = 0;
         } else {
             na = malloc(l1 + 1);
-            if (!na) { return 1; }
+            if (!na) { return 4; }
             memcpy(na, oa, l1);
             na[l1] = '\0';
             free(oa);
@@ -67,7 +75,7 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     p2 = oa + i;
     l2 = ol - i;
     na = join(oa, l1, p2, l2, "\n", 1, &nl);
-    if (!na) { return 1; }
+    if (!na) { return 5; }
     free(oa);
     *sarr = na;
     *sarrlen = nl;
@@ -96,18 +104,20 @@ char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
 }
 
 int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len) {
-    char *oa = *sarr, *na = NULL, *ka;
-    size_t ol = *sarrlen, nl = 0, i, cur = 0;
+    char *oa = NULL, *na = NULL, *ka;
+    size_t ol = NULL, nl = 0, i, cur = 0;
 
-    if (!oa || ol == 0 || !str || len == 0) { return 1; }
+    if (!sarr || !sarrlen || !str || len == 0) { return 1; }
+    oa = *sarr, ol = *sarrlen;
+    if (!oa || ol == 0) { return 2; }
 
     for (i = 0; i < ol && cur != at; i++) {
         if (oa[i] == '\n') { cur++; }
     }
-    if (i >= ol || cur != at) { return 1; }
+    if (i >= ol || cur != at) { return 3; }
     nl = ol + len + 1;
     na = malloc(nl + 1);
-    if (!na) { return 1; }
+    if (!na) { return 4; }
     ka = na;
     memcpy(ka, oa, i);
     ka += i;
