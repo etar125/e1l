@@ -145,7 +145,7 @@ int zarr_insert(zarr *a, const char *s, size_t l, size_t at) {
     return ret == 0 ? 0 : ret + 10;
 }
 
-char* zarr_getstr(zarr *a, size_t at, size_t *outlen) {
+char* zarr_getstr(const zarr *a, size_t at, size_t *outlen) {
     size_t pos;
     char *r;
 

@@ -11,7 +11,7 @@ Licensed under ISC (see LICENSE)
 #include "estrdup.h"
 #include "e1l.h"
 
-size_t sarr_count(char *sarr, size_t sarrlen) {
+size_t sarr_count(const char *sarr, size_t sarrlen) {
     size_t count = 0, i;
     if (!sarr || sarrlen == 0) { return 0; }
     for (i = 0; i < sarrlen; i++) {
@@ -20,7 +20,7 @@ size_t sarr_count(char *sarr, size_t sarrlen) {
 }
 
 int sarr_add(char **sarr, size_t *sarrlen, char *str, size_t len) {
-    char *new = NULL, old = NULL;
+    char *new = NULL, *old = NULL;
     size_t newlen = 0, oldlen = 0;
 
     if (!str || len == 0) { return 0; }
@@ -44,7 +44,7 @@ int sarr_add(char **sarr, size_t *sarrlen, char *str, size_t len) {
 
 int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     char *oa = NULL, *na = NULL, *p2 = NULL;
-    size_t ol = NULL, nl = 0, l1 = 0, l2 = 0,
+    size_t ol = 0, nl = 0, l1 = 0, l2 = 0,
         cur = 0, i;
 
     if (!sarr || !sarrlen) { return 1; }
@@ -82,7 +82,7 @@ int sarr_remove(char **sarr, size_t *sarrlen, size_t at) {
     return 0;
 }
 
-char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
+char* sarr_getdup(const char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
     char *s = NULL;
     size_t l = 0, cur = 0, i, start;
 
@@ -105,7 +105,7 @@ char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen) {
 
 int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len) {
     char *oa = NULL, *na = NULL, *ka;
-    size_t ol = NULL, nl = 0, i, cur = 0;
+    size_t ol = 0, nl = 0, i, cur = 0;
 
     if (!sarr || !sarrlen || !str || len == 0) { return 1; }
     oa = *sarr, ol = *sarrlen;
@@ -160,7 +160,7 @@ int sarr_normalize(char **sarr, size_t *sarrlen) {
     return 0;
 }
 
-size_t sarr_getpos(char *sarr, size_t sarrlen, size_t at) {
+size_t sarr_getpos(const char *sarr, size_t sarrlen, size_t at) {
     size_t cur = 0, i;
 
     if (!sarr || sarrlen == 0) { return 0; }

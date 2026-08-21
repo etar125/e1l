@@ -44,16 +44,16 @@ int zarr_update(zarr *a);
 int zarr_add(zarr *a, const char *s, size_t l);
 int zarr_remove(zarr *a, size_t at);
 int zarr_insert(zarr *a, const char *s, size_t l, size_t at);
-char* zarr_getstr(zarr *a, size_t at, size_t *outlen);
+char* zarr_getstr(const zarr *a, size_t at, size_t *outlen);
 
 /* sarr */
 
-size_t sarr_count(char *sarr, size_t sarrlen);
+size_t sarr_count(const char *sarr, size_t sarrlen);
 int sarr_add(char **sarr, size_t *sarrlen, char *str, size_t len);
 int sarr_remove(char **sarr, size_t *sarrlen, size_t at);
-char* sarr_getdup(char *sarr, size_t sarrlen, size_t at, size_t *outlen);
+char* sarr_getdup(const char *sarr, size_t sarrlen, size_t at, size_t *outlen);
 int sarr_insert(char **sarr, size_t *sarrlen, size_t at, char *str, size_t len);
 int sarr_normalize(char **sarr, size_t *sarrlen);
-size_t sarr_getpos(char *sarr, size_t sarrlen, size_t at);
+size_t sarr_getpos(const char *sarr, size_t sarrlen, size_t at);
 
 #endif

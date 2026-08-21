@@ -13,9 +13,9 @@ Hello 2\n\
 Hello 3\n\
 Hello 4\n\
 Hello 5";
-    zarr a;
+    zarr a = zarr_empty();
     puts("=== e1_zarr test ===");
-    a = zarr_init(basa, strlen(basa));
+    EC(zarr_init(basa, strlen(basa), &a));
     printf("3: %s\n", zarr_getstr(&a, 2, NULL));
     printf("5: %s\n", zarr_getstr(&a, 4, NULL));
     EC(zarr_add(&a, "Hello 6", strlen("Hello 6")))
