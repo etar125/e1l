@@ -39,7 +39,7 @@ typedef struct {
 } zarr;
 
 zarr zarr_empty();
-zarr zarr_init(const char *s, size_t l);
+int zarr_init(const char *s, size_t l, zarr *out);
 int zarr_update(zarr *a);
 int zarr_add(zarr *a, const char *s, size_t l);
 int zarr_remove(zarr *a, size_t at);
