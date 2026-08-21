@@ -15,14 +15,16 @@ int d_append(char **ds, size_t *asize, size_t *bsize, const char *s, size_t l) {
     char *nds;
 
     if (!s || l == 0) { return 0; }
-    if (!ds || !asize || !bsize || *asize > *bsize) { return 1; }
+    if (!ds || !asize || !bsize) { return 1; }
     as = *asize, bs = *bsize;
+    if (as > bs) { return 2; }
+    
     if (bs == 0) { bs = 32; }
     while (as + l >= bs) {
         bs += bs / 2;
     }
     nds = realloc(*ds, bs);
-    if (!nds) { return 1; }
+    if (!nds) { return 3; }
     memcpy(&nds[as], s, l);
     as += l;
     nds[as] = '\0';
