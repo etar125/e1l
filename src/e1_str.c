@@ -64,7 +64,11 @@ void reverse(char *s, size_t l) {
 char* join(const char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl,
            size_t *outlen) {
     char *ret = NULL;
-    size_t len = l1 + l2 + (with ? wl : 0);
+    size_t len;
+
+    if (!s1 || !s2) { return NULL; }
+    len = l1 + l2 + (with ? wl : 0);
+    
     ret = malloc(len + 1);
     if (!ret) { return NULL; }
     memcpy(ret, s1, l1);
