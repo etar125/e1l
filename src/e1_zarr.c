@@ -33,10 +33,11 @@ int zarr_update(zarr *a) {
             s = i + 1;
         }
     }
-    if (i != 0) { ofs[c++] = s; }
+    if (i != 0) { ofs[c++] = s; } /* CHECK: if c == ac - 1 ? */
     if (c < ac) {
         nfs = realloc(ofs, sizeof(size_t) * c);
         if (!nfs) { free(ofs); return 4; }
+        ofs = nfs;
     }
     if (a->offsets) { free(a->offsets); }
     a->offsets = ofs;
