@@ -12,16 +12,19 @@ Licensed under ISC (see LICENSE)
 #include "e1l.h"
 
 int zarr_update(zarr *a) {
-    size_t ac = 8, s = 0, c = 0, i, *ofs = NULL, *nfs = NULL;
+    size_t ac = 8, s = 0, c = 0, i, *ofs = NULL, *nfs = NULL, size;
+    char *strs = NULL;
 
     if (!a || !a->strs) { return 1; }
+    strs = a->strs;
+    size = a->size;
 
     ofs = malloc(sizeof(size_t) * 8);
     if (!ofs) { return 2; }
     
-    for (i = 0; i < a->size; i++) {
-        if (a->strs[i] == '\n' || a->strs[i] == '\0') {
-            a->strs[i] = '\0';
+    for (i = 0; i < size; i++) {
+        if (strs[i] == '\n' || strs[i] == '\0') {
+            strs[i] = '\0';
             ofs[c++] = s;
             if (c == ac) {
                 ac += ac / 2;
@@ -33,7 +36,7 @@ int zarr_update(zarr *a) {
             s = i + 1;
         }
     }
-    if (i != 0) { ofs[c++] = s; } /* CHECK: if c == ac - 1 ? */
+    if (i != 0 && s < size) { ofs[c++] = s; }
     if (c < ac) {
         nfs = realloc(ofs, sizeof(size_t) * c);
         if (!nfs) { free(ofs); return 4; }
