@@ -11,3 +11,10 @@ https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
 - rewrite tests
 - zarr: normalize string before adding/inserting in zarr
 - sarr: normalize string before adding/inserting in sarr
+- arr: implement
+    struct arr { void **elems; size_t count };
+    int  arr_init   (arr*);
+    int  arr_add    (arr*, void*);
+    int  arr_insert (arr*, size_t, void*);
+    int  arr_remove (arr*, size_t);
+    void arr_free   (arr*);
