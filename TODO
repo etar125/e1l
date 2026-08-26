@@ -9,3 +9,5 @@ https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
 - one file per function
 - write documentation
 - rewrite tests
+- zarr: normalize string before adding/inserting in zarr
+- sarr: normalize string before adding/inserting in sarr
