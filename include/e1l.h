@@ -17,10 +17,9 @@ THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WIT
 
 char* readstr(size_t *outlen);
 void reverse(char *s, size_t l);
-char* join(const char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl,
-           size_t *outlen);
+char* join(const char *s1, size_t l1, const char *s2, size_t l2, const char *with, size_t wl, size_t *outlen);
 char* insert(const char *s1, size_t l1, const char *s2, size_t l2, size_t at, size_t *outlen);
-int split(const char *s, size_t l, char ***out, size_t *outlen);
+int split(const char *s, size_t l, const char *with, size_t wl, char ***out, size_t *outlen);
 
 /* dynamic str */
 
