@@ -10,6 +10,7 @@ Licensed under ISC (see LICENSE)
 #include <termios.h>
 
 #include "e1l.h"
+#include "estrdup.h"
 
 char* readstr(size_t *outlen) {
     struct termios old_settings, settings;
@@ -61,8 +62,7 @@ void reverse(char *s, size_t l) {
     } return;
 }
 
-char* join(const char *s1, size_t l1, const char *s2, size_t l2, char *with, size_t wl,
-           size_t *outlen) {
+char* join(const char *s1, size_t l1, const char *s2, size_t l2, const char *with, size_t wl, size_t *outlen) {
     char *ret = NULL;
     size_t len;
 
@@ -95,4 +95,46 @@ char* insert(const char *s1, size_t l1, const char *s2, size_t l2, size_t at, si
     ret[size] = '\0';
     if (outlen) { *outlen = size; }
     return ret;
+}
+
+int split(const char *s, size_t l, const char *with, size_t wl, char ***out, size_t *outlen) {
+    char **list = NULL, **_list = NULL;
+    size_t listpos = 0, listsize = 0, elemstart = 0, i = 0;
+
+    if (!s || !with || !out || !outlen) { return 1; }
+    
+    for (i = 0; i <= l; i++) {
+        if (i == l || strncmp(s + i, with, wl) == 0) {
+            if (listpos == listsize) {
+                if (listsize == 0) { listsize = 1; }
+                else { listsize *= 2; }
+                _list = realloc(list, listsize);
+                if (!_list) {
+                    if (list) { free(list); }
+                    return 2;
+                }
+                list = _list;
+                _list = NULL;
+                list[listpos++] = estrndup(s + elemstart, i - elemstart);
+                i += wl;
+                elemstart = i;
+                i -= 1;
+            }
+        }
+    }
+
+    if (listpos < listsize) {
+        listsize = listpos + 1;
+        _list = realloc(list, listsize);
+        if (!_list) {
+            if (list) { free(list); }
+            return 3;
+        }
+        list = _list;
+    }
+
+    *out = list;
+    *outlen = listsize;
+
+    return 0;
 }
