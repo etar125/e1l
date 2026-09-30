@@ -6,19 +6,27 @@
 #include "e1l.h"
 
 int main(void) {
-    size_t len, jjlen;
-    char *text, *pre, *jj, *ii;
+    char *input = NULL, *dup = NULL, *joined = NULL, *inserted = NULL, **splitted = NULL;
+    size_t inputlen, joinedlen, insertedlen, splittedcount, i;
     puts("=== e1_str test ===");
     printf("Type something: ");
-    text = readstr(&len);
-    pre = estrdup(text);
-    reverse(text, len);
-    jj = join(text, len, pre, len, ", ", 2, &jjlen);
-    ii = insert(jj, jjlen, ", UwU", 5, len, NULL);
-    printf("%s\n%s\n", jj, ii);
-    free(text);
-    free(pre);
-    free(jj);
-    free(ii);
+    input = readstr(&inputlen);
+    dup = estrdup(input);
+    reverse(input, inputlen);
+    joined = join(input, inputlen, dup, inputlen, ", ", 2, &joinedlen);
+    inserted = insert(joined, joinedlen, ", UwU", 5, inputlen, &insertedlen);
+    if (split(inserted, insertedlen, ", ", 2, &splitted, &splittedcount) != 0) {
+        perror("split failed");
+        return 1;
+    }
+    printf("%s\n%s\ncount: %lu\n", joined, inserted, splittedcount);
+    for (i = 0; i < splittedcount; i++) {
+        printf("%s\n", splitted[i]);
+    }
+    free(input);
+    free(dup);
+    free(joined);
+    free(inserted);
+    free(splitted);
     return 0;
 }
