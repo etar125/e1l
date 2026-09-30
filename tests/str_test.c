@@ -22,6 +22,7 @@ int main(void) {
     printf("%s\n%s\ncount: %lu\n", joined, inserted, splittedcount);
     for (i = 0; i < splittedcount; i++) {
         printf("%s\n", splitted[i]);
+        free(splitted[i]);
     }
     free(input);
     free(dup);

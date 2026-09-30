@@ -108,7 +108,7 @@ int split(const char *s, size_t l, const char *with, size_t wl, char ***out, siz
             if (listpos == listsize) {
                 if (listsize == 0) { listsize = 1; }
                 else { listsize *= 2; }
-                _list = realloc(list, listsize);
+                _list = realloc(list, listsize * sizeof(char*));
                 if (!_list) {
                     if (list) { free(list); }
                     return 2;
@@ -124,8 +124,8 @@ int split(const char *s, size_t l, const char *with, size_t wl, char ***out, siz
     }
 
     if (listpos < listsize) {
-        listsize = listpos + 1;
-        _list = realloc(list, listsize);
+        listsize = listpos;
+        _list = realloc(list, listsize * sizeof(char*));
         if (!_list) {
             if (list) { free(list); }
             return 3;
