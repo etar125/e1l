@@ -20,4 +20,3 @@ https://github.com/ramdeoshubham/macros, debug: log, err, etc; ...)
     void arr_free   (arr*);
 - 0.7.0 str split: add "size_t **outlens" arg and
                    rename "size_t *outlen" to "size_t *outcount"
-- same with split_q
